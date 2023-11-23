@@ -8,3 +8,12 @@ class UserInfo(models.Model):
     email=models.EmailField()
     organizationName=models.CharField(max_length=250)
     organizationType=models.CharField(max_length=100)
+
+class Application(models.Model):
+    projectTitle= models.CharField(max_length= 100)
+    projectDescription = models.TextField(max_length=500)
+    additionalInformation =models.TextField(max_length=500)
+    phoneNumber = models.CharField(max_length=12)
+
+    def __str__(self):
+        return self.projectTitle

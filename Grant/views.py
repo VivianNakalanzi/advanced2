@@ -2,16 +2,34 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from Grant.models import UserInfo
-
+from Grant.models import UserInfo, Application
+from django.contrib.auth.decorators import login_required
+from .forms import ApplicationForm
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
 def index(request):
     return render(request, 'index.html')
 
+def status(request):
+    applications = Application.objects.all()
+    return render(request, 'status.html',{'applications':applications})
+
+@login_required
 def apply(request):
-    return render(request, 'Apply.html')
+    submitted= False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return HttpResponseRedirect('/apply? submitted= True')
+    else:
+        form = ApplicationForm
+        if submitted in request.GET:
+            submitted =True
+
+    return render(request, 'Apply.html', {'form':form, 'submitted':submitted})
 
 def log_in(request):
     context={

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container mt-5">
+    <h1>APPLICATIONS</h1>
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Project Title</th>
+          <th>Project Description</th>
+          <th>Phone Number</th>
+          <!-- Add other fields as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for application in applications %}
+          <tr>
+            <td>{{ application.id }}</td>
+            <td>{{ application.projectTitle }}</td>
+            <td>{{ application.projectDescription }}</td>
+            <td>{{ application.phoneNumber }}</td>
+            <!-- Add other fields as needed -->
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock content %}
